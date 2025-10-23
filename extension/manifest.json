@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "name": "ElevenLabs Voice Agent",
+    "host_permissions": [
+        "https://*.elevenlabs.io/*",
+        "ws://*.elevenlabs.io/*"
+    ],
+    "content_scripts": [
+        {
+            "js": ["content.js"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "env": [
+        {
+            "key": "AGENT_KEY",
+            "value": "agent_0001k7khc6jfex6bqdn9dm195kq0"
+        }
+    ]
+}

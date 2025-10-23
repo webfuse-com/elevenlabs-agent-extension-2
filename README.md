@@ -1,39 +1,44 @@
-<a href="https://github.com/surfly/agent-extension-blueprint"><img src="./static/hero.png" height="72"></a>
-
-# Webfuse Agent Blueprint
+# Webfuse ElevenLabs Agent
 
 <a href="https://webfuse.com"><img src="https://img.shields.io/badge/Webfuse-Extension-3b82f6"></a>
 
-This is a minimal Webfuse AI web agent extension blueprint.
+This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.com) voice AI agent extension.
 
-> The blueprint extension simply summarizes the currently browsed web page.
+## with ElevenLabs
 
-## Setup
+### 1. Create and configure agent
 
-1. Copy template repository.
-2. Clone repository to local machine.
-3. Change working directory to repository directory.
-4. Create `.env` file in root directory and provide credentials (compare `.env.example`).
-5. Run `npm install`.
+<a href="https://elevenlabs.io/app/agents">
+  <img src="./.github/el-agents-platform-1.png" width="640">
+</a>
 
-## Tuning
+### 2. Provide agent ID to `env` in [`manifest.json`](./manifest.json)
 
-Customize the backend LLM system prompt in [`SYSTEM_PROMPT.md`](./src/background/SYSTEM_PROMPT.md) according to individual requirements.
+``` json
+{
+  "env": [
+    {
+      "key": "AGENT_KEY",
+      "value": "agent_0123abcdefghijklomnopqrstuvwxyz"
+    }
+  ]
+}
+```
 
-## Workflow
+### 3. Create tools for the [Automation API](https://dev.webfuse.com/automation-api)
 
-1. Run `npm run bundle:debug`.
-2. Open preview URL in browser.
+<a href="https://elevenlabs.io/app/agents">
+  <img src="./.github/el-agents-platform-2.png" width="640">
+</a>
 
-> The extension is built with the [Labs](https://www.webfuse.com/labs) framework.
+### 4. Align tools with [`popup.js`](./popup.js)
 
-## Deploy
+<a href="https://elevenlabs.io/app/agents">
+  <img src="./.github/el-agents-platform-3.png" width="540">
+</a>
 
-1. Run `npm run bundle`.
-2. Upload `dist` directory to Webfuse Space (via Session UI).
+## with Webfuse
 
-> Production bundles do not copy environmental variables, but require manual provision via Session UI.
+### 1. Create a Webfuse [Space](https://dev.webfuse.com/spaces-sessions)
 
-## 
-
-<img src="./.github/recording.gif">
+### 2. Deploy this [Extension](https://dev.webfuse.com/extensions) project

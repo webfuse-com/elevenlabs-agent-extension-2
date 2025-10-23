@@ -1,16 +1,14 @@
 {
-  "private": true,
-  "name": "agent-blueprint",
-  "type": "module",
+  "private": "true",
+  "main": "background.js",
   "scripts": {
-    "bundle": "npx labs bundle",
-    "bundle:debug": "npx labs preview --debug"
-  },
-  "dependencies": {
-    "openai": "^5.7.0",
-    "zod": "^3.25.67"
+    "build": "esbuild extension/popup.src.js --outfile=extension/popup.js --bundle --minify",
+    "build:watch": "npm run build -- --watch"
   },
   "devDependencies": {
-    "@surfly/labs": "github:surfly/labs"
+    "esbuild": "^0.25.11"
+  },
+  "dependencies": {
+    "@elevenlabs/client": "^0.8.0"
   }
 }

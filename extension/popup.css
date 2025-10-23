@@ -1,0 +1,103 @@
+:root {
+    --inner-size: 35px;
+    --outer-size: 15px;
+}
+
+@keyframes highlight {
+    0%, 100% {
+        transform: scale(1.0);
+    }
+    75% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes microphone-enabled {
+    0%, 100% {
+        background-color: #1f0f4d;
+    }
+    50% {
+        background-color: #370ab1;
+    }
+}
+
+* { 
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    animation-name: highlight;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+body {
+    display: flex;
+    gap: var(--outer-size);
+    padding: var(--outer-size);
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+button {
+    cursor: pointer;
+    padding: var(--outer-size);
+    background-color: #121212;
+    border: none;
+    border-radius: 100%;
+    transition: filter 200ms;
+}
+
+button:hover {
+    filter: brightness(0.925);
+}
+
+button:active {
+    filter: brightness(0.825);
+}
+
+button svg {
+    display: none;
+    width: var(--inner-size);
+    height: var(--inner-size);
+}
+
+button svg path {
+    fill: #ffffff;
+}
+
+[data-microphone="true"] button svg:first-of-type {
+    display: block;
+}
+
+[data-microphone="false"] button svg:last-of-type {
+    display: block;
+}
+
+[data-microphone="true"] button {
+    background-color: #3b15a5;
+    animation-name: microphone-enabled;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+[data-microphone="false"] #microphone-feedback {
+    background-color: #e4e4e6;
+    animation: none;
+}
+
+voice-orb {
+    transition: box-shadow 1s;
+}
+
+[data-speaking="true"] voice-orb {
+    box-shadow: 0 0 6px 1px #27009435;
+}
