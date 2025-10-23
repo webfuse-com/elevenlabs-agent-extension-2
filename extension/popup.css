@@ -98,6 +98,6 @@ voice-orb {
     transition: box-shadow 1s;
 }
 
-[data-speaking="true"] voice-orb {
+/* [data-speaking="true"] voice-orb {
     box-shadow: 0 0 6px 1px #27009435;
-}
+} */

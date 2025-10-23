@@ -1,38 +1,33 @@
 import { Conversation } from '@elevenlabs/client';
 
 
-navigator.mediaDevices.getUserMedia({ audio: true });
-
-
-const ORB_CONFIG = {
-    false: {
-        colors: [
-            [255, 217, 130],
-            [175, 137, 0],
-            [255, 217, 130]
-        ],
-        transitionTime: 2000,
-        morphSpeed: 0.25,
-        randomness: 0.2,
-        rotationSpeed: 0.075
-    },
-    true: {
-        colors: [
-            [255, 247, 212],
-            [192, 127, 0],
-            [255, 217, 90],
-            [0, 200, 255]
-        ],
-        transitionTime: 1000,
-        morphSpeed: 0.75,
-        randomness: 0.9,
-        rotationSpeed: 0.425
-    }
-};
-
-
 const CLIENT_TOOLS = {
     async take_dom_snapshot() {
+        const fullSnapshot = await browser.webfuseSession
+            .automation
+            .take_dom_snapshot({
+                modifier: {
+                    name: 'D2Snap',
+                    params: {
+                        hierarchyRatio: 0, textRatio: 0, attributeRatio: 0,
+                        assignUniqueIDs: true
+                    }
+                }
+            });
+        const finalSnapshot = ((fullSnapshot.length / 4) < 2**15)
+            ? fullSnapshot
+            : browser.webfuseSession
+                .automation
+                .take_dom_snapshot({
+                    modifier: "downsample"
+                });
+
+		console.debug("Snapshot:", finalSnapshot);
+
+		return finalSnapshot;
+    },
+
+    async take_gui_snapshot() {
         const fullSnapshot = await browser.webfuseSession
             .automation
             .take_dom_snapshot();
@@ -49,20 +44,47 @@ const CLIENT_TOOLS = {
 		return finalSnapshot;
     },
 
+    async mouse_move({ x, y }) {
+        return browser.webfuseSession
+            .automation
+            .mouse_move([ x, y ], true);
+    },
+
+    async scroll({ direction, amount, selector }) {
+        return browser.webfuseSession
+            .automation
+            .scroll(direction, amount, selector, true);
+    },
+
     async left_click({ selector }) {
         return browser.webfuseSession
             .automation
             .left_click(selector, true);
     },
 
+    async right_click({ selector }) {
+        return browser.webfuseSession
+            .automation
+            .right_click(selector, true);
+    },
+
     async type({ text, selector }) {
         return browser.webfuseSession
             .automation
-            .type(text, selector, true);
+            .type(text, selector, true, true);
+    },
+
+    highlight({ selector }) {
+        document.querySelector(selector)
+            .style.backgroundColor = "yellow";
     },
 
     relocate({ url }) {
         browser.webfuseSession.relocate(url);
+    },
+
+    async get_current_location({}) {
+        return await browser.tabs.sendMessage(0, { type: "location" });
     }
 };
 
@@ -91,6 +113,32 @@ const CONVERSATION_HANDLERS = {
     },
 };
 
+const ORB_CONFIG = {
+    false: {
+        colors: [
+            [255, 217, 130],
+            [175, 137, 0],
+            [255, 217, 130]
+        ],
+        transitionTime: 3000,
+        morphSpeed: 0.25,
+        randomness: 0.2,
+        rotationSpeed: 0.075
+    },
+    true: {
+        colors: [
+            [255, 247, 212],
+            [192, 127, 0],
+            [255, 217, 90],
+            [0, 200, 255]
+        ],
+        transitionTime: 1000,
+        morphSpeed: 0.75,
+        randomness: 0.9,
+        rotationSpeed: 0.425
+    }
+};
+
 
 function activateOrb(state, transitionTime = null) {
     document.body.setAttribute("data-speaking", state);
@@ -101,6 +149,10 @@ function activateOrb(state, transitionTime = null) {
             ...transitionTime ? { transitionTime } : {}
         });
 }
+
+
+navigator.mediaDevices
+    .getUserMedia({ audio: true });
 
 document
     .addEventListener("DOMContentLoaded", () => {
@@ -150,6 +202,8 @@ window.VoiceAgent = (() => {
 				clientTools: CLIENT_TOOLS,
 				...CONVERSATION_HANDLERS
 			});
+
+            conversation.sendUserActivity();
 
 			const microphoneOn = await browser.runtime.sendMessage({
 				type: "microphone"
