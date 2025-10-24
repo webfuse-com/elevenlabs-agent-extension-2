@@ -12,7 +12,7 @@ This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.
   <img src="./.github/el-agents-platform-1.png" width="640">
 </a>
 
-### 2. Provide agent ID to `env` in [`manifest.json`](./manifest.json)
+### 2. Provide agent ID to `env` in [`manifest.json`](./extension/manifest.json)
 
 ``` json
 {
@@ -31,7 +31,7 @@ This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.
   <img src="./.github/el-agents-platform-2.png" width="640">
 </a>
 
-### 4. Align tools with [`popup.js`](./popup.js)
+### 4. Align tools with [`popup.tools.js`](./extension/popup.tools.js)
 
 <a href="https://elevenlabs.io/app/agents">
   <img src="./.github/el-agents-platform-3.png" width="540">
