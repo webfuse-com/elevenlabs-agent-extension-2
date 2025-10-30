@@ -46,3 +46,5 @@ This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.
 ### 2. Deploy this [Extension](https://dev.webfuse.com/extensions) project
 
 > 💡 &ensp; Run `npm run build` after modifying the popup.
+
+> 💡 &ensp; [`SYSTEM_PROMPT.md`](./SYSTEM_PROMPT.md) contains an agent LLM system prompt example.
