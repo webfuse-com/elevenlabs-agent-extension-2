@@ -17,24 +17,36 @@ document
             );
         };
 
-        const size = {
-            width: 2 * (cssPropSize("--inner-size") + 2 * cssPropSize("--outer-size")) + 3 * cssPropSize("--outer-size") + 10,
-            height: (cssPropSize("--inner-size") + 2 * cssPropSize("--outer-size")) + 2 * cssPropSize("--outer-size")
-        };
+        const size = [];
+        size.push([
+            cssPropSize("--diameter") * 1.5 + 16 + 4 * cssPropSize("--padding") + 2 * cssPropSize("--diameter") + 2,
+            cssPropSize("--margin-top") + cssPropSize("--diameter") * 1.5 + 16 + 2
+        ]);
+        size.push([
+            Math.max(size[0][0], 420),
+            size[0][1] + cssPropSize("--padding") + cssPropSize("--maxsection-height") + 2
+        ]);
 
-        document.querySelector("voice-orb")
-            .setAttribute("size", ~~(cssPropSize("--inner-size") + 2 * cssPropSize("--outer-size")));
+        const voiceOrbEl = document.querySelector("voice-orb");
+        voiceOrbEl.setAttribute("size", cssPropSize("--diameter") * 1.25);
+        voiceOrbEl.style.maxHeight = `${cssPropSize("--diameter") * 1.25}px`;
 
         browser.browserAction
             .setPopupStyles({
                 minWidth: 0,
                 minHeight: 0,
-                borderRadius: `${size.height / 2}px`,
-                border: "1px solid #e2e2e2ff",
-                borderTopRightRadius: "10px"
+                backgroundColor: "transparent"
             });
-        browser.browserAction
-            .resizePopup(size.width, size.height);
         browser.browserAction.detachPopup();
         browser.browserAction.openPopup();
+
+        window.resizePopup = function(isMax = false) {
+            const currentSize = size[+isMax];
+
+            setTimeout(() => {
+                browser.browserAction
+                    .resizePopup(currentSize[0], currentSize[1]);
+            }, !isMax ? 300 : 0);
+        }
+        window.resizePopup();
     });

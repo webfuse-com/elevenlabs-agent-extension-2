@@ -1,26 +1,24 @@
 const ORB_CONFIG = {
     false: {
         colors: [
-            [255, 217, 130],
-            [175, 137, 0],
-            [255, 217, 130]
+            [255, 255, 255],
+            [117, 139, 253]
         ],
-        transitionTime: 3000,
-        morphSpeed: 0.25,
+        transitionTime: 500,
+        morphSpeed: 0.15,
         randomness: 0.2,
-        rotationSpeed: 0.075
+        rotationSpeed: 0.05
     },
     true: {
         colors: [
-            [255, 247, 212],
-            [192, 127, 0],
-            [255, 217, 90],
-            [0, 200, 255]
+            [117, 139, 253],
+            [186, 243, 236],
+            [91, 93, 245],
         ],
-        transitionTime: 1000,
-        morphSpeed: 0.75,
+        transitionTime: 2000,
+        morphSpeed: 0.9,
         randomness: 0.9,
-        rotationSpeed: 0.425
+        rotationSpeed: 0.7
     }
 };
 

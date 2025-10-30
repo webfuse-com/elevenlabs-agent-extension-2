@@ -4,6 +4,8 @@
 
 This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.com) voice AI agent extension.
 
+<img src="./.github/hero.gif" width="440">
+
 ## with ElevenLabs
 
 ### 1. Create and configure agent
@@ -42,3 +44,5 @@ This is an [ElevenLabs](https://elevenlabs.io) +  [Webfuse](https://www.webfuse.
 ### 1. Create a Webfuse [Space](https://dev.webfuse.com/spaces-sessions)
 
 ### 2. Deploy this [Extension](https://dev.webfuse.com/extensions) project
+
+> 💡 &ensp; Run `npm run build` after modifying the popup.
