@@ -60,7 +60,7 @@ export const CLIENT_TOOLS = {
 
         return browser.webfuseSession
             .automation
-            .scroll(direction, amount, selector, true);
+            .scroll(selector, direction, amount, true);
     },
 
     async left_click({ selector }) {
@@ -84,7 +84,7 @@ export const CLIENT_TOOLS = {
 
         return browser.webfuseSession
             .automation
-            .type(text, selector, true, true);
+            .type(selector, text, true, true);
     },
 
     highlight({ selector }) {
